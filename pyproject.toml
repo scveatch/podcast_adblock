@@ -1,7 +1,29 @@
 [project]
 name = "ad-blocker"
 version = "0.1.0"
-description = "Add your description here"
+description = "Filters RSS feeds for engrained ads and skips them."
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 dependencies = []
+
+# Ruff configuration
+[tool.ruff]
+select = ["E", "F"]
+
+# Pylint
+[tool.pylint.main]
+max-line-length = 120
+
+# Codespell
+[tool.codespell]
+skip = ".git, *.lock, *.mp3, *.wav"
+
+[dependency-groups]
+dev = [
+    "bandit>=1.9.4",
+    "codespell>=2.4.2",
+    "mypy>=1.19.1",
+    "pre-commit>=4.5.1",
+    "pylint>=4.0.5",
+    "ruff>=0.15.7",
+]
