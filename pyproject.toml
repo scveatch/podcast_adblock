@@ -1,7 +1,59 @@
 [project]
 name = "ad-blocker"
 version = "0.1.0"
-description = "Add your description here"
+description = "Filters RSS feeds for engrained ads and skips them."
 readme = "README.md"
-requires-python = ">=3.10"
-dependencies = []
+requires-python = ">=3.11"
+dependencies = [
+]
+
+# Ruff configuration
+[tool.ruff]
+line-length = 120
+lint.select = ["E", "F", "UP", "B", "SIM", "I"]
+exclude = ["build", "dist", ".venv"]
+
+# Pylint
+[tool.pylint."MASTER"]
+ignore = ["dev", "test", ".venv"]
+
+[tool.pylint."FORMAT"]
+max-line-length = 120
+good-names-rgxs = ["^[A-Z_][A-Z0-9_]*$"]
+
+[tool.pylint."SIMILARITIES"]
+min-similarity-lines = 10
+
+# Mypy
+[tool.mypy]
+python_version = "3.14"
+mypy_path = "stubs"
+warn_unused_configs = true
+ignore_missing_imports = false
+disallow_untyped_defs = true
+disallow_any_unimported = true
+disallow_incomplete_defs = true
+no_implicit_optional = true
+check_untyped_defs = true
+warn_return_any = true
+warn_unused_ignores = true
+
+# Codespell
+[tool.codespell]
+skip = ".git, *.lock, *.mp3, *.wav, *.yml, *.yaml"
+
+# Bandit
+[tool.bandit]
+exclude_dirs = [".venv"]
+
+[dependency-groups]
+dev = [
+    "bandit>=1.9.4",
+    "codespell>=2.4.2",
+    "detect-secrets>=1.5.0",
+    "mypy>=1.19.1",
+    "pip-audit>=2.10.0",
+    "pre-commit>=4.5.1",
+    "pylint>=4.0.5",
+    "ruff>=0.15.7",
+]
