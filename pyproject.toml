@@ -4,7 +4,8 @@ version = "0.1.0"
 description = "Filters RSS feeds for engrained ads and skips them."
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+]
 
 # Ruff configuration
 [tool.ruff]
@@ -45,7 +46,9 @@ skip = ".git, *.lock, *.mp3, *.wav, *.yml, *.yaml"
 dev = [
     "bandit>=1.9.4",
     "codespell>=2.4.2",
+    "detect-secrets>=1.5.0",
     "mypy>=1.19.1",
+    "pip-audit>=2.10.0",
     "pre-commit>=4.5.1",
     "pylint>=4.0.5",
     "ruff>=0.15.7",
