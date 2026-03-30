@@ -42,6 +42,10 @@ warn_unused_ignores = true
 [tool.codespell]
 skip = ".git, *.lock, *.mp3, *.wav, *.yml, *.yaml"
 
+# Bandit
+[tool.bandit]
+exclude_dirs = [".venv"]
+
 [dependency-groups]
 dev = [
     "bandit>=1.9.4",
