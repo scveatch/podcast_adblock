@@ -9,13 +9,11 @@ Last Modified: 03/25/2026
 """
 
 
-def main():
+def main() -> None:
     """
     This is a main function.
     """
-    x = "1"
-    for i in x:
-        print(i)
+    print("Hello world!")
 
 
 if __name__ == "__main__":
