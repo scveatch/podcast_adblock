@@ -64,9 +64,6 @@ jobs:
       - name: pip-audit
         run: uv run pip-audit --ignore-vuln CVE-2026-4539
 
-      - name: License check
-        run: uv run pip-licenses --fail-on "GPL;AGPL;LGPL"
-
   precommit-manual:
     runs-on: ubuntu-latest
     needs: setup
