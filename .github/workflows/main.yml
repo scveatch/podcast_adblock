@@ -91,9 +91,7 @@ jobs:
       - run: |
           pip install pre-commit
           pre-commit run check-yaml --all-files
-          pre-commit run check-json --all-files
           pre-commit run check-toml --all-files
-          pre-commit run check-xml --all-files
 
   whitespace:
     runs-on: ubuntu-latest

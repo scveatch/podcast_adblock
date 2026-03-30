@@ -1,4 +1,4 @@
-.PHONY: install lint fix check
+.PHONY: install lint fix check all test clean clean_cache
 
 install:
 	uv sync
@@ -17,10 +17,7 @@ test:
 	uv run pytest
 
 clean:
-	rm -rf \
-	*.pyc \
-	*.pyo \
-	*.pyd \
+	rm -rf 	*.pyc, *.pyo, *.pyd \
 	.cache \
 	build \
 	dist \
