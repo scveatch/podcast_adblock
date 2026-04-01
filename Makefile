@@ -5,10 +5,10 @@ install:
 	uv run pre-commit install
 
 lint:
-	uv run python -m pre_commit run --all-files
+	uv run python -m pre_commit run --hook-stage manual --all-files
 
 fix:
-	uv run python -m pre_commit run --hook-stage manual --all-files
+	uv run python -m pre_commit run --all-files
 
 all:
 	echo "`all` not implmemented yet"

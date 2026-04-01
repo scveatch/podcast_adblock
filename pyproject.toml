@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "feedparser>=6.0.12",
+    "tqdm>=4.67.3",
 ]
 
 # Ruff configuration
