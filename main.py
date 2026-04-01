@@ -1,20 +1,23 @@
 """
-File: ./main.py
+File: app/main.py
 
-Description: This is a file
+Description: A test module to simulate running the program.
 
-Author: Spencer Veatch
+Author: Spencer Veatch (sveatch@willamette.edu)
 
-Last Modified: 03/25/2026
+Last Modified: 03/30/2026
 """
 
+from pathlib import Path
 
-def main() -> None:
-    """
-    This is a main function.
-    """
-    print("Hello world!")
+from app.services.episode_service import EpisodeService
 
+URL: str = "https://audioboom.com/channels/5094626.rss"
+
+DOWNLOAD_PATH: Path = Path.cwd()
 
 if __name__ == "__main__":
-    main()
+    s = EpisodeService(URL, DOWNLOAD_PATH)
+    monkeys = s.get("6A-King Arthur Prologue: The Once and Really Only that One Time King")
+    path = s.download("6A-King Arthur Prologue: The Once and Really Only that One Time King")
+    print(path)

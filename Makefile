@@ -1,14 +1,15 @@
 .PHONY: install lint fix check all test clean clean_cache
+PRECOMMIT := uv run pre-commit
 
 install:
 	uv sync
 	uv run pre-commit install
 
 lint:
-	uv run python -m pre_commit run --hook-stage manual --all-files
+	$(PRECOMMIT) run --hook-stage manual --all-files
 
 fix:
-	uv run python -m pre_commit run --all-files
+	$(PRECOMMIT) run --all-files
 
 all:
 	echo "`all` not implmemented yet"
