@@ -5,6 +5,10 @@ description = "Filters RSS feeds for engrained ads and skips them."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "feedparser>=6.0.12",
+    "tqdm>=4.67.3",
+    "types-requests>=2.33.0.20260327",
+    "types-tqdm>=4.67.3.20260303",
 ]
 
 # Ruff configuration
@@ -37,6 +41,10 @@ no_implicit_optional = true
 check_untyped_defs = true
 warn_return_any = true
 warn_unused_ignores = true
+
+[[tool.mypy.overrides]]
+module = "feedparser.*"
+ignore_missing_imports = true
 
 # Codespell
 [tool.codespell]
