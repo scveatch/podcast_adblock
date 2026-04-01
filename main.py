@@ -1,5 +1,5 @@
 """
-File: app/main.py
+File: main.py
 
 Description: A test module to simulate running the program.
 
@@ -16,8 +16,17 @@ URL: str = "https://audioboom.com/channels/5094626.rss"
 
 DOWNLOAD_PATH: Path = Path.cwd()
 
-if __name__ == "__main__":
+
+def main() -> None:
+    """
+    A test function used to simulate running the program.
+    """
     s = EpisodeService(URL, DOWNLOAD_PATH)
     monkeys = s.get("6A-King Arthur Prologue: The Once and Really Only that One Time King")
     path = s.download("6A-King Arthur Prologue: The Once and Really Only that One Time King")
     print(path)
+    print(monkeys)
+
+
+if __name__ == "__main__":
+    main()

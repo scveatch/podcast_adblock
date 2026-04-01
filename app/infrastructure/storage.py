@@ -28,7 +28,7 @@ class Storage:
             download directories.
         """
         self._base_dir = base_dir
-        self.audio = base_dir / "audio"
+        self.audio: Path = base_dir / "audio"
 
         self.ensure_exists()
 
@@ -62,10 +62,10 @@ class Storage:
             ValueError: If the episode identifier (i.e., `12`, `23A`, etc.)
             could not be identified in the title.
         """
-        file: str | None = self._extract_id(ep)
-        if not file:
+        filename: str | None = self._extract_id(ep)
+        if not filename:
             raise ValueError("Could not parse episode identifier from title")
-        return self.audio / f"{file}.mp3"
+        return self.audio / f"{filename}.mp3"
 
     def _extract_id(self, ep: Episode) -> str | None:
         """
@@ -79,5 +79,5 @@ class Storage:
             (str | None): The extracted identifier string, or `None` if the
             identifier could not be found.
         """
-        match = re.match(r"^\s*(\d+[A-Za-z]?)\b", ep.title)
+        match: re.Match[str] | None = re.match(r"^\s*(\d+[A-Za-z]?)\b", ep.title)
         return match.group(1) if match else None

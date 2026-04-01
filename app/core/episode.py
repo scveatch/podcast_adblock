@@ -6,7 +6,7 @@ indexer that can be used to search / load episodes.
 
 Author: Spencer Veatch (sveatch@willamette.edu)
 
-Last Modified: 03/30/2026
+Last Modified: 03/31/2026
 """
 
 from dataclasses import asdict, dataclass
@@ -59,7 +59,7 @@ class Episode:
             return None
         # Resolve url
         try:
-            resp = requests.head(self.audio_url, allow_redirects=True, timeout=10)
+            resp: requests.Response = requests.head(self.audio_url, allow_redirects=True, timeout=10)
             if resp.status_code == 200:
                 return resp.url
         except requests.RequestException:
@@ -67,6 +67,12 @@ class Episode:
         return None
 
     def __str__(self) -> str:
+        """
+        A magic method printing the Episode class more cleanly.
+
+        Returns:
+            (str): The Episode object, represented as a string.
+        """
         return "\n".join(f"{attribute}: {value}" for attribute, value in asdict(self).items())
 
 
@@ -107,7 +113,7 @@ class EpisodeIndex:
             (list[Episode]): A list of episodes whose titles contain
             the query parameter.
         """
-        q = query.lower()
+        q: str = query.lower()
         return [ep for ep in self._episodes if q in ep.title.lower()]
 
     def get_by_title(self, title: str) -> Episode | None:

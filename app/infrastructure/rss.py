@@ -12,7 +12,7 @@ that, the module is regularly typed.
 
 Author: Spencer Veatch (sveatch@willamette.edu)
 
-Last Modified: 03/30/2026
+Last Modified: 03/31/2026
 """
 
 import feedparser as fp

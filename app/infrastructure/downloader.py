@@ -27,7 +27,7 @@ def download_audio(url: str, download_path: Path, show_progress: bool = False) -
     """
     with requests.get(url, stream=True, timeout=20) as resp:
         resp.raise_for_status()
-        total = int(resp.headers.get("content-length", 0))
+        total: int = int(resp.headers.get("content-length", 0))
         with (
             open(download_path, "wb") as f,
             tqdm(total=total, unit="B", unit_scale=True, disable=not show_progress) as progress,
