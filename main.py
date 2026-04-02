@@ -22,8 +22,8 @@ def main() -> None:
     A test function used to simulate running the program.
     """
     s = EpisodeService(URL, DOWNLOAD_PATH)
-    monkeys = s.get("6A-King Arthur Prologue: The Once and Really Only that One Time King")
-    path = s.download("6A-King Arthur Prologue: The Once and Really Only that One Time King")
+    monkeys = s.get("431: Turkish folklore: These Dreams")
+    path = s.download("431: Turkish folklore: These Dreams")
     print(path)
     print(monkeys)
 
