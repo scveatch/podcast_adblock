@@ -6,6 +6,7 @@ readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
     "feedparser>=6.0.12",
+    "numpy>=2.4.4",
     "tqdm>=4.67.3",
     "types-requests>=2.33.0.20260327",
     "types-tqdm>=4.67.3.20260303",
