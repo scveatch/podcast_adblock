@@ -12,7 +12,7 @@ from collections.abc import Iterator, Sequence
 from pathlib import Path
 from typing import Any
 
-class Segment:
+class Word:
     """
     Transcription segment returned by faster-whisper.
 
@@ -71,7 +71,7 @@ class BatchedInferencePipeline:
         log_progress: bool = ...,
         word_timestamps: bool = ...,
         **kwargs: Any,
-    ) -> tuple[Iterator[Segment], Any]:
+    ) -> tuple[Iterator[Word], Any]:
         """
         Processes a batch of audio in chunks and return language information.
 
