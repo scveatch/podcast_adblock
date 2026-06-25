@@ -10,7 +10,7 @@ Last Modified: 03/30/2026
 
 from pathlib import Path
 
-from app.services.episode_service import EpisodeService
+from app.ml.features.transcription import transcribe
 
 URL: str = "https://audioboom.com/channels/5094626.rss"
 
@@ -21,11 +21,15 @@ def main() -> None:
     """
     A test function used to simulate running the program.
     """
-    s = EpisodeService(URL, DOWNLOAD_PATH)
-    monkeys = s.get("431: Turkish folklore: These Dreams")
-    path = s.download("431: Turkish folklore: These Dreams")
-    print(path)
-    print(monkeys)
+    # s = EpisodeService(URL, DOWNLOAD_PATH)
+    # monkeys = s.get("431: Turkish folklore: These Dreams")
+    # path = s.download("431: Turkish folklore: These Dreams")
+    test_path: Path = DOWNLOAD_PATH / "audio" / "output.mp3"
+    for x in transcribe(test_path):
+        print(x)
+
+    # print(path)
+    # print(monkeys)
 
 
 if __name__ == "__main__":
