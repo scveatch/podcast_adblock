@@ -11,3 +11,6 @@ wheels/
 
 # Specific testing directories
 audio
+
+# Private information
+.env

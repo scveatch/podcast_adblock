@@ -5,8 +5,10 @@ description = "Filters RSS feeds for engrained ads and skips them."
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "faster-whisper>=1.2.1",
     "feedparser>=6.0.12",
     "numpy>=2.4.4",
+    "python-dotenv>=1.2.2",
     "tqdm>=4.67.3",
     "types-requests>=2.33.0.20260327",
     "types-tqdm>=4.67.3.20260303",
@@ -20,7 +22,7 @@ exclude = ["build", "dist", ".venv"]
 
 # Pylint
 [tool.pylint."MASTER"]
-ignore = ["dev", "test", ".venv"]
+ignore = ["dev", "test", ".venv", "stubs"]
 
 [tool.pylint."FORMAT"]
 max-line-length = 120
@@ -43,8 +45,14 @@ check_untyped_defs = true
 warn_return_any = true
 warn_unused_ignores = true
 
+# Ignore feedparser due to missing stubs
 [[tool.mypy.overrides]]
 module = "feedparser.*"
+ignore_missing_imports = true
+
+# Ignore faster-whisper due to missing stubs
+[[tool.mypy.overrides]]
+module = "faster_whisper"
 ignore_missing_imports = true
 
 # Codespell
