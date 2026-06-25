@@ -99,7 +99,7 @@ def iter_sentences(words: Iterator[Any]) -> Iterator[Sentence]:
         (Iterator[Sentence]): A generator returning sentences.
 
     Raises:
-        ValueError: If internal state invarients are violated (should be impossible).
+        ValueError: If internal state invariants are violated (should be impossible).
     """
     current_words: list[str] = []
     sentence_start: float | None = None
