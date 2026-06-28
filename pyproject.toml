@@ -57,7 +57,7 @@ ignore_missing_imports = true
 
 # Codespell
 [tool.codespell]
-skip = ".git, *.lock, *.mp3, *.wav, *.yml, *.yaml"
+skip = ".git, *.lock, *.mp3, *.wav, *.yml, *.yaml, *.jsonl"
 
 # Bandit
 [tool.bandit]
