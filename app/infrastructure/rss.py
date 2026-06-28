@@ -50,6 +50,7 @@ def normalize_episode(episode: "fp.FeedParserDict") -> Episode:  # type: ignore[
         XML in a type-safe and easy to access format.
     """
     return Episode(
+        id=_make_id(episode),
         title=_get_title(episode),
         image_url=_get_img_url(episode),
         page_url=_get_page_url(episode),
@@ -57,6 +58,20 @@ def normalize_episode(episode: "fp.FeedParserDict") -> Episode:  # type: ignore[
         duration=_get_duration(episode),
         published=_get_published(episode),
     )
+
+
+def _make_id(ep: "fp.FeedParserDict") -> str:  # type: ignore[no-any-unimported]
+    """
+    Constructs a unique identifier from the title.
+
+    Args:
+        ep (fp.FeedParserDict): An episode, rendered by the
+        RSS parser.
+
+    Returns:
+        (str): A string representation of the UID.
+    """
+    return str(ep.get("guid"))
 
 
 def _get_title(ep: "fp.FeedParserDict") -> str:  # type: ignore[no-any-unimported]

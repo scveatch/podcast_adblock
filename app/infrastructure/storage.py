@@ -8,7 +8,6 @@ Author: Spencer Veatch (sveatch@willamette.edu)
 Last Modified: 03/31/2026
 """
 
-import re
 from pathlib import Path
 
 from app.core.episode import Episode
@@ -62,22 +61,7 @@ class Storage:
             ValueError: If the episode identifier (i.e., `12`, `23A`, etc.)
             could not be identified in the title.
         """
-        filename: str | None = self._extract_id(ep)
+        filename: str = ep.id
         if not filename:
             raise ValueError("Could not parse episode identifier from title")
         return self.audio / f"{filename}.mp3"
-
-    def _extract_id(self, ep: Episode) -> str | None:
-        """
-        Extract out the episode identifier from the title string
-        (i.e., '22A' from `22A Irish Legends`).
-
-        Args:
-            ep (Episode): The episode object whose audio we want to download.
-
-        Returns:
-            (str | None): The extracted identifier string, or `None` if the
-            identifier could not be found.
-        """
-        match: re.Match[str] | None = re.match(r"^\s*(\d+[A-Za-z]?)\b", ep.title)
-        return match.group(1) if match else None
