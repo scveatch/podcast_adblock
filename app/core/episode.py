@@ -6,20 +6,20 @@ indexer that can be used to search / load episodes.
 
 Author: Spencer Veatch (sveatch@willamette.edu)
 
-Last Modified: 03/31/2026
+Last Modified: 06/27/2026
 """
 
+from collections.abc import Iterator
 from dataclasses import asdict, dataclass
 
-import requests
 
-
-@dataclass
+@dataclass(frozen=True)
 class Episode:
     """
     Containerizes the attributes of a fetched episode.
 
     Attributes:
+        id (str): A unique identifier associated with the episode.
         title (str): The episode's title.
         image_url (str | None): The URL to the episode's associated title image.
         `None` if the URL cannot be found.
@@ -36,35 +36,13 @@ class Episode:
         property -- should not be directly accessed.
     """
 
+    id: str
     title: str
     image_url: str | None
     page_url: str
     audio_url: str | None
     duration: int | None
     published: str
-    _resolved_audio_url: str | None = None
-
-    @property
-    def resolved_url(self) -> str | None:
-        """
-        Lazily resolves the final audio url, following any redirects. Returns `None`
-        if the url is missing or cannot be resolved.
-
-        Returns:
-            (str | None): The resolved url or `None` if the url could not be resolved.
-        """
-        if self._resolved_audio_url:
-            return self._resolved_audio_url
-        if not self.audio_url:
-            return None
-        # Resolve url
-        try:
-            resp: requests.Response = requests.head(self.audio_url, allow_redirects=True, timeout=10)
-            if resp.status_code == 200:
-                return resp.url
-        except requests.RequestException:
-            return None
-        return None
 
     def __str__(self) -> str:
         """
@@ -76,9 +54,9 @@ class Episode:
         return "\n".join(f"{attribute}: {value}" for attribute, value in asdict(self).items())
 
 
-class EpisodeIndex:
+class EpisodeRepository:
     """
-    Indexes the returned episodes to make them searchable.
+    In-memory repository of episodes with search and lookup.
     """
 
     def __init__(self, episodes: list[Episode]) -> None:
@@ -90,7 +68,16 @@ class EpisodeIndex:
             from the RSS feed.
         """
         self._episodes = episodes
-        self._by_title: dict[str, Episode] = {ep.title.lower(): ep for ep in self._episodes}
+        self._by_id: dict[str, Episode] = {ep.id: ep for ep in self._episodes}
+
+    def __iter__(self) -> Iterator[Episode]:
+        """
+        Iterator magic method.
+
+        Returns:
+            (Iterator[Episode]): An iterator over the Episodes contained within.
+        """
+        return iter(self._episodes)
 
     def all(self) -> list[Episode]:
         """
@@ -100,6 +87,22 @@ class EpisodeIndex:
             (list[Episode]): All episodes scraped from the RSS feed.
         """
         return self._episodes
+
+    def get(self, episode_id: str) -> Episode | None:
+        """
+        A system-facing function that returns an episode
+        given an ID. Returns `None` if the episode cannot
+        be found.
+
+        Args:
+            episode_id (str): The unique ID associated with
+            any Episode object.
+
+        Returns:
+            (Episode | None): The associated Episode object if
+            it exists, `None` otherwise.
+        """
+        return self._by_id.get(episode_id)
 
     def search(self, query: str) -> list[Episode]:
         """
@@ -115,16 +118,3 @@ class EpisodeIndex:
         """
         q: str = query.lower()
         return [ep for ep in self._episodes if q in ep.title.lower()]
-
-    def get_by_title(self, title: str) -> Episode | None:
-        """
-        Fetches a given Episode by its title.
-
-        Args:
-            title (str): The title to search for.
-
-        Returns:
-            (Episode | None): The Episode whose title matches the search
-            parameter(s). `None` if the Episode cannot be found.
-        """
-        return self._by_title.get(title.lower())
