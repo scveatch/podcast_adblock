@@ -1,5 +1,5 @@
 """
-File: app/ml/features/corpus.py
+File: app/ml/training/corpus.py
 
 Description: Generates a corpus of training data to help
 classify ad material.
@@ -14,7 +14,7 @@ from collections.abc import Iterable, Iterator
 from dataclasses import dataclass
 from pathlib import Path
 
-from .transcription import Sentence
+from app.ml.features.transcription import Sentence
 
 
 def json_writer(sentences: Iterable[Sentence], output_path: Path, default_label: str = "content") -> None:

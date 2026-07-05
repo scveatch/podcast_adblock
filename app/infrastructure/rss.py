@@ -15,6 +15,8 @@ Author: Spencer Veatch (sveatch@willamette.edu)
 Last Modified: 03/31/2026
 """
 
+import hashlib
+
 import feedparser as fp
 
 from app.core.episode import Episode
@@ -71,7 +73,7 @@ def _make_id(ep: "fp.FeedParserDict") -> str:  # type: ignore[no-any-unimported]
     Returns:
         (str): A string representation of the UID.
     """
-    return str(ep.get("guid"))
+    return hashlib.sha1(ep.get("link").encode()).hexdigest()
 
 
 def _get_title(ep: "fp.FeedParserDict") -> str:  # type: ignore[no-any-unimported]

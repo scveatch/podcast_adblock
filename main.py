@@ -14,8 +14,8 @@ from app.core.episode import Episode, EpisodeRepository
 from app.infrastructure import rss
 from app.infrastructure.downloader import download
 from app.infrastructure.storage import Storage
-from app.ml.features.corpus import json_writer, load_training_data
 from app.ml.features.transcription import transcribe
+from app.ml.training.corpus import json_writer, load_training_data
 
 URL: str = "https://audioboom.com/channels/5094626.rss"
 
@@ -33,7 +33,7 @@ def test_download() -> Path:
     storage: Storage = Storage(DOWNLOAD_PATH)
     episodes: list[Episode] = rss.fetch_feed(URL)
     repo: EpisodeRepository = EpisodeRepository(episodes)
-    ep: list[Episode] = repo.search("102-Charlemagne: Honor Among Thieves")
+    ep: list[Episode] = repo.search("372: Greek Myths: Things as they Are")
     audio_path: Path = download(ep[0], storage)
     return audio_path
 
@@ -43,7 +43,7 @@ def test_transcription() -> None:
     Tests whisper transcription.
     """
     path = test_download()
-    json_writer(transcribe(path), DOWNLOAD_PATH / "data" / "102.jsonl")
+    json_writer(transcribe(path), DOWNLOAD_PATH / "data" / "372.jsonl")
 
 
 def test_data_load() -> None:
