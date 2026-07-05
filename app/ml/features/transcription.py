@@ -10,36 +10,17 @@ Last Modified: 06/24/2026
 
 import os
 from collections.abc import Iterator
-from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
 from dotenv import load_dotenv
 from faster_whisper import BatchedInferencePipeline, WhisperModel
 
+from .types import Sentence
+
 load_dotenv()
 
 HF_TOKEN = os.getenv("HF_TOKEN")
-
-
-@dataclass(frozen=True)
-class Sentence:
-    """
-    A time-aligned transcription unit representing the span
-    of a sentence.
-
-    This is a lossy linguistic grouping, but will hopefully
-    be sufficient for the immediate term.
-
-    Attributes:
-        start (float): The time at the beginning of the sentence.
-        end (float): The time at the end of the sentence.
-        text (str): The transcribed sentence.
-    """
-
-    start: float
-    end: float
-    text: str
 
 
 def transcribe(

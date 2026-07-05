@@ -14,7 +14,7 @@ from collections.abc import Iterable, Iterator
 from dataclasses import dataclass
 from pathlib import Path
 
-from .transcription import Sentence
+from .types import Sentence
 
 
 def json_writer(sentences: Iterable[Sentence], output_path: Path, default_label: str = "content") -> None:
